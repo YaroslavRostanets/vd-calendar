@@ -1,10 +1,10 @@
 <template>
-    
+    <span>week</span>
 </template>
 
 <script>
     export default {
-        name: "ViewContainer"
+        name: "week"
     }
 </script>
 

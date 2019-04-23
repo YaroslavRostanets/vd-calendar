@@ -6,7 +6,12 @@
       </div>
       <div class="col-xl-10 col-md-12">
         <div class="fc fc-unthemed fc-ltr">
-          <header-toolbar></header-toolbar>
+          <header-toolbar
+                  v-bind:tabs="tabs"
+                  v-bind:active-index="activeTabIndex"
+                  v-on:toggle-tab-event="toggleTab"></header-toolbar>
+          <view-container
+                  v-bind:active-index="activeTabIndex"></view-container>
         </div>
 
       </div>
@@ -17,11 +22,25 @@
 
 <script>
 import HeaderToolbar from './components/HeaderToolbar'
+import ViewContainer from './components/ViewContainer/index'
 
 export default {
   name: 'app',
+  data: function() {
+    return {
+      tabs: ['month', 'week', 'day', 'list'],
+      activeTabIndex: 0
+    }
+  },
+  methods: {
+    toggleTab: function(tabIndex) {
+      console.log(tabIndex);
+      this.activeTabIndex = tabIndex;
+    }
+  },
   components: {
-    HeaderToolbar
+    HeaderToolbar,
+    ViewContainer
   }
 }
 </script>
@@ -29,6 +48,7 @@ export default {
 <style>
 .vd-calendar {
   padding: 1.25rem;
+  background: #FFFFFF;
 }
 
 </style>

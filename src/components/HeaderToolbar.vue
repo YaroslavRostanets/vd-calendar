@@ -14,12 +14,13 @@
         </div>
         <div class="fc-right">
             <div class="fc-button-group">
-                <button type="button" class="fc-month-button fc-button fc-state-default fc-corner-left fc-state-active">
-                    month
-                </button>
-                <button type="button" class="fc-agendaWeek-button fc-button fc-state-default">week</button>
-                <button type="button" class="fc-agendaDay-button fc-button fc-state-default">day</button>
-                <button type="button" class="fc-listMonth-button fc-button fc-state-default fc-corner-right">list
+                <button type="button"
+                        v-for="(title, index) in tabs"
+                        :key="index"
+                        v-on:click="$emit('toggle-tab-event', index)"
+                        :class="{'fc-state-active': index === activeIndex}"
+                        class="fc-button fc-state-default">
+                    {{title}}
                 </button>
             </div>
         </div>
@@ -30,7 +31,14 @@
 
 <script>
     export default {
-        name: "HeaderToolbar"
+        name: "HeaderToolbar",
+        props: ['tabs', 'activeIndex'],
+        data: function(){
+
+            return {
+                //tabs: ['month', 'week', 'day', 'list']
+            }
+        }
     }
 </script>
 
@@ -74,5 +82,13 @@
     }
     .fc-button-group {
         margin-right: 10px;
+    }
+    .fc-state-default:first-child {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+    .fc-state-default:last-child {
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
     }
 </style>

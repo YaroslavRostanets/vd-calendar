@@ -7,7 +7,6 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
-  "homepage": ".",
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
     "core-js": "^2.6.5",
