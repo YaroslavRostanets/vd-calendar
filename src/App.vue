@@ -9,6 +9,7 @@
           <header-toolbar
                   v-bind:tabs="tabs"
                   v-bind:active-index="activeTabIndex"
+                  v-bind:date-now="dateNow"
                   v-on:toggle-tab-event="toggleTab"></header-toolbar>
           <view-container
                   v-bind:active-index="activeTabIndex"></view-container>
@@ -29,7 +30,8 @@ export default {
   data: function() {
     return {
       tabs: ['month', 'week', 'day', 'list'],
-      activeTabIndex: 0
+      activeTabIndex: 0,
+      dateNow: new Date()
     }
   },
   methods: {

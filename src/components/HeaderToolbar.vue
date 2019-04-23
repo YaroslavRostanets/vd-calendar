@@ -24,7 +24,7 @@
                 </button>
             </div>
         </div>
-        <div class="fc-center"><h2>April 2019</h2></div>
+        <div class="fc-center"><h2>{{formatedDate}}</h2></div>
         <div class="fc-clear"></div>
     </div>
 </template>
@@ -32,11 +32,10 @@
 <script>
     export default {
         name: "HeaderToolbar",
-        props: ['tabs', 'activeIndex'],
-        data: function(){
-
-            return {
-                //tabs: ['month', 'week', 'day', 'list']
+        props: ['tabs', 'activeIndex', 'dateNow'],
+        computed: {
+            formatedDate: function () {
+                return this.dateNow.toLocaleString();
             }
         }
     }
