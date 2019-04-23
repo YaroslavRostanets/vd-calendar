@@ -34,7 +34,6 @@ export default {
   },
   methods: {
     toggleTab: function(tabIndex) {
-      console.log(tabIndex);
       this.activeTabIndex = tabIndex;
     }
   },
@@ -50,5 +49,7 @@ export default {
   padding: 1.25rem;
   background: #FFFFFF;
 }
-
+.fc {
+  max-width: 1020px;
+}
 </style>

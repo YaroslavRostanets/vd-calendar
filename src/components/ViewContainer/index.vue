@@ -1,8 +1,5 @@
 <template>
     <div>
-        <div>
-            {{activeIndex}}
-        </div>
         <div v-if="activeIndex === 0">
             <month></month>
         </div>
