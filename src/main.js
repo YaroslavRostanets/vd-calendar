@@ -1,8 +1,15 @@
 import Vue from 'vue'
 import App from './App.vue'
-import './assets/fullcalendar.css'
+import BootstrapVue from 'bootstrap-vue'
+import Modal from 'bootstrap-vue/es/components/modal'
+import 'bootstrap/dist/css/bootstrap.css'
 
-Vue.config.productionTip = false
+import FullCalendar from 'vue-full-calendar'
+
+Vue.use(FullCalendar, BootstrapVue, Modal);
+
+
+Vue.config.productionTip = false;
 
 new Vue({
   data: () => {
