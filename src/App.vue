@@ -2,7 +2,7 @@
   <div class="vd-calendar">
     <div class="row">
       <div class="col-xl-2 col-md-12">
-        Блок с описанием
+        <event-detail :selectedEvent="selectedEvent"></event-detail>
       </div>
       <div class="col-xl-10 col-md-12">
         <div class="full-calendar-wrap">
@@ -25,51 +25,30 @@
 <script>
 import { FullCalendar } from 'vue-full-calendar'
 import addEventPopup from './components/addEventPopup'
+import eventDetail from './components/eventDetail'
 import 'fullcalendar/dist/locale/uk'
 import './assets/fullcalendar.css'
 import './assets/thema.scss'
 
 export default {
   name: 'app',
+  props: ['calendarEvents', 'calendarConfig'],
   data: function() {
     const vm = this;
     return {
       isModalOpen: false,
-      events: [
-        {
-          title: 'Подія 1',
-          start: '2019-04-24',
-          testField: 'Довільне поле'
-        },
-        {
-          title: 'Подія 2',
-          start: '2019-04-27',
-          end: '2019-04-15',
-        },
-        {
-          title: 'Подія 3',
-          start: '2019-04-12T12:30:00',
-          allDay: false,
+      selectedEvent: null,
+      events: this.calendarEvents,
+      config: Object.assign(this.calendarConfig, {
+        customButtons: {
+          addEvent: {
+            text: 'Додати подію',
+            click: function() {
+              vm.isModalOpen = true;
+            }
+          }
         }
-      ],
-      config: {
-          customButtons: {
-              addEvent: {
-                  text: 'Додати подію',
-                  click: function() {
-                    vm.isModalOpen = true;
-                  }
-              }
-          },
-          header: {
-              left: 'prev,next today addEvent',
-              center: 'title',
-              right: 'month,agendaWeek,agendaDay,listMonth'
-          },
-          weekends: true,
-          navLinks: true, // can click day/week names to navigate views
-          editable: true,
-        }
+      })
     }
   },
   methods: {
@@ -78,13 +57,14 @@ export default {
     },
     eventSelected: function(event, jsEvent, view) {
       console.log(event, jsEvent, view);
+      this.selectedEvent = event;
     },
     closeModal: function() {
       this.isModalOpen = false;
     }
   },
   components: {
-    FullCalendar, addEventPopup
+    FullCalendar, addEventPopup, eventDetail
   },
     mounted: function() {
       if(this.$refs.fullcalendar){
