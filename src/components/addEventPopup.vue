@@ -2,15 +2,25 @@
     <div>
         <b-modal id="add-event-modal"
                  size="sm"
-                 title="Створення події"
+                 scrollable
+                 @ok="saveEvent"
+                 okTitle="Створити"
+                 cancelTitle="Відмінити"
+                 :title="editingEvent ? 'Редагування події' : 'Створення події'"
                  ref="add-event-popup">
                 <b-form>
                     <b-form-group label="Назва події">
-                        <b-form-input trim></b-form-input>
+                        <b-form-input v-model="instanceEvent.title" trim></b-form-input>
                     </b-form-group>
                     <b-form-group label="Дата події">
-                        <b-form-input type="date" v-model="date" trim></b-form-input>
+                        <b-form-input type="date" v-model="instanceEvent.start" trim></b-form-input>
                     </b-form-group>
+                    <b-form-textarea
+                            placeholder="Опис події"
+                            rows="1"
+                            no-resize
+                            v-model="instanceEvent.description"
+                    ></b-form-textarea>
                     <hr>
                     <b-form-group label="Нагадування">
                         <b-form-checkbox value="test">Нагадувати за 3 дні до початку</b-form-checkbox>
@@ -37,17 +47,24 @@
     import BFormInput from 'bootstrap-vue/es/components/form-input/form-input'
     import BFormCheckbox from 'bootstrap-vue/es/components/form-checkbox/form-checkbox'
     import BFormSelect from 'bootstrap-vue/es/components/form-select/form-select'
+    import BFormTextarea from 'bootstrap-vue/es/components/form-textarea/form-textarea'
     import BModal from 'bootstrap-vue/es/components/modal/modal'
     import vBModal from 'bootstrap-vue/es/directives/modal/modal'
 
 
     export default {
         name: 'addEventPopup',
-        props: ['isModalOpen'],
+        props: ['isModalOpen', 'editingEvent'],
         data: function() {
             const dateNow = new Date();
+
             return {
                 date: `${dateNow.getFullYear()}-${String(dateNow.getMonth()+1).padStart(2,"0")}-${dateNow.getDate()}`,
+                instanceEvent: {
+                    title: '',
+                    start: this.date,
+                    description: '',
+                },
                 remindersSelected: 'z',
                 remindersOptions: [
                     { value: 'a', text: 'В момент початку' },
@@ -66,16 +83,28 @@
             }
 
         },
+        methods: {
+            saveEvent: function() {
+                console.log('Зберегти подію');
+            }
+        },
         watch: {
-          isModalOpen: function(val){
-              if(val) this.$refs['add-event-popup'].show()
-          }
+            isModalOpen: function(val){
+                if(val) this.$refs['add-event-popup'].show()
+            },
+            editingEvent: function(val) {
+                this.instanceEvent= {
+                    title: val ? val.title : '',
+                    start: val ? val.start : this.date,
+                    description: val ? val.description : '',
+                }
+            }
         },
         mounted(){
             var self = this;
             this.$root.$on('bv::modal::hide', function () {
                 self.$emit('close-modal');
-            })
+            });
         },
         components: {
             BModal,
@@ -83,7 +112,8 @@
             BFormGroup,
             BFormInput,
             BFormCheckbox,
-            BFormSelect
+            BFormSelect,
+            BFormTextarea
         },
         directives: {
             'b-modal': vBModal

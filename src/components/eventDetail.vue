@@ -10,15 +10,20 @@
                         <td>Старт події:</td>
                         <td>{{dateStart}}</td>
                     </tr>
-                    <tr>
+                    <tr v-if="dateEnd">
                         <td>Завершення події:</td>
-                        <td>{{dateStart}}</td>
+                        <td>{{dateEnd}}</td>
+                    </tr>
+                    <tr v-if="description">
+                        <td colspan="2">
+                            {{description}}
+                        </td>
                     </tr>
                 </table>
             </div>
             <div class="group">
-                <button type="button" class="btn btn-secondary">Редагувати подію</button>
-                <button type="button" class="btn btn-secondary">Видалити подію</button>
+                <b-button variant="primary" @click="$emit('edit-event', selectedEvent.id)">Редагувати</b-button>
+                <b-button variant="danger" @click="$emit('delete-event', selectedEvent.id)">Видалити</b-button>
             </div>
         </div>
     </div>
@@ -29,16 +34,24 @@
 </template>
 
 <script>
+    import BButton from 'bootstrap-vue/es/components/button/button'
+
     export default {
         name: "eventDetail",
         props: ['selectedEvent'],
         computed: {
             dateStart: function() {
-                return new Date(this.selectedEvent.start).toLocaleDateString()
+                return new Date(this.selectedEvent.start).toLocaleDateString();
             },
             dateEnd: function() {
-                return new Date(this.selectedEvent.end).toLocaleDateString()
+                return this.selectedEvent.end ? new Date(this.selectedEvent.end).toLocaleDateString() : null;
+            },
+            description: function() {
+                return this.selectedEvent.description ? this.selectedEvent.description : null;
             }
+        },
+        components: {
+            BButton
         }
     }
 </script>
@@ -47,7 +60,7 @@
     .card {
         border-radius: 2px;
         border-top: 4px solid #0073AA;
-        box-shadow: 0 2px 1px rgba(0, 0, 0, 0.05);
+        box-shadow: none;
         border-left: none;
         border-right: none;
         border-bottom: none;
@@ -65,5 +78,12 @@
         text-transform: uppercase;
         display: inline-block;
         margin-right: 10px;
+    }
+    .card-block {
+        font-size: 14px;
+    }
+    .group {
+        display: flex;
+        justify-content: space-between;
     }
 </style>

@@ -2,7 +2,10 @@
   <div class="vd-calendar">
     <div class="row">
       <div class="col-xl-2 col-md-12">
-        <event-detail :selectedEvent="selectedEvent"></event-detail>
+        <event-detail
+                @delete-event="eventDelete"
+                @edit-event="eventEdit"
+                :selectedEvent="selectedEvent"></event-detail>
       </div>
       <div class="col-xl-10 col-md-12">
         <div class="full-calendar-wrap">
@@ -11,11 +14,14 @@
                   @day-click="dayClick"
                   @event-selected="eventSelected"
                   :config="config"
-                  :events="events"></full-calendar>
+                  :events="events"
+                  ref="fullcalendar"
+                  ></full-calendar>
         </div>
       </div>
     </div>
     <add-event-popup
+            :editingEvent="editingEvent"
             @close-modal="closeModal"
             :isModalOpen="isModalOpen"></add-event-popup>
   </div>
@@ -38,6 +44,7 @@ export default {
     return {
       isModalOpen: false,
       selectedEvent: null,
+      editingEvent: null,
       events: this.calendarEvents,
       config: Object.assign(this.calendarConfig, {
         customButtons: {
@@ -61,6 +68,19 @@ export default {
     },
     closeModal: function() {
       this.isModalOpen = false;
+      this.editingEvent = null;
+    },
+    eventEdit: function(id) {
+      this.editingEvent = this.events.find((el) => el.id == id);
+      this.isModalOpen = true;
+      console.log('Событие редактирования', id);
+
+    },
+    eventDelete: function(id) {
+      console.log('Событие удаления', id);
+      this.events.splice( this.events.findIndex((el) => el.id === id), 1); //Выполнить в callback AJAX
+      this.selectedEvent = null;
+      this.editingEvent = null;
     }
   },
   components: {
@@ -68,7 +88,7 @@ export default {
   },
     mounted: function() {
       if(this.$refs.fullcalendar){
-          console.log(this.$refs.fullcalendar.header);
+          console.log( this.$refs.fullcalendar);
       }
     }
 }
