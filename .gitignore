@@ -2,6 +2,7 @@
 node_modules
 /dist
 /_html
+/calendar_build
 
 # local env files
 .env.local

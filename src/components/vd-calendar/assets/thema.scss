@@ -112,3 +112,28 @@
 .fc-sat {
   background-color: #F3F2F2;
 }
+.fc-list-view {
+  font-size: 14px;
+}
+@media screen and (max-width: 768px) {
+  .fc-toolbar.fc-header-toolbar {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    .fc-center {
+      order: 1;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .fc-left {
+      order: 2;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .fc-right {
+      order: 3;
+      width: 100%;
+    }
+  }
+
+}

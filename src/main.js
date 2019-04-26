@@ -1,5 +1,6 @@
 import Vue from 'vue'
-import App from './App.vue'
+import App from './components/vd-calendar/index.vue'
+import vdMultiselect from './components/vd-multiselect/index'
 import BootstrapVue from 'bootstrap-vue'
 import Modal from 'bootstrap-vue/es/components/modal'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -24,12 +25,13 @@ const events = [
     title: 'Тестова подія 2',
     start: '2019-04-27',
     end: '2019-04-28',
+    allDay: true
   },
   {
     id: "3",
     title: 'Тестова подія 3',
     start: '2019-04-12T12:30:00',
-    allDay: false,
+    allDay: true,
   }
 ];
 
@@ -46,14 +48,33 @@ const config = {
   defaultView: 'month'
 };
 
+/*---------инициализация CALENDAR-------------*/
+
 new Vue({
-  data: () => {
-    return {}
-  },
   render: h => h(App, {
     props: {
       calendarEvents: events,
       calendarConfig: config
     }
   })
-}).$mount('#vd-calendar')
+}).$mount('#vd-calendar');
+
+/*----------------------------*/
+
+/*---------инициализация SELECT-------------*/
+
+new Vue({
+    render: h => h(vdMultiselect, {
+        props: {
+            isDisabled: false,
+            isTouched: false,
+            placeholder: 'Виберіть опцію',
+            value: [],
+            options: ['Параметр 1', 'Параметр 2', 'Параметр 3',
+                'Параметр 4', 'Параметр 5', 'Параметр 6',
+                'Параметр 7', 'Параметр 8', 'Параметр 9']
+        }
+    })
+}).$mount('.vd-multiselect');
+
+/*----------------------------*/

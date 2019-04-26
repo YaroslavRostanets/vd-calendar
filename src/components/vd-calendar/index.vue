@@ -30,8 +30,8 @@
 
 <script>
 import { FullCalendar } from 'vue-full-calendar'
-import addEventPopup from './components/addEventPopup'
-import eventDetail from './components/eventDetail'
+import addEventPopup from './containers/addEventPopup'
+import eventDetail from './containers/eventDetail'
 import 'fullcalendar/dist/locale/uk'
 import './assets/fullcalendar.css'
 import './assets/thema.scss'

@@ -84,6 +84,12 @@
     }
     .group {
         display: flex;
-        justify-content: space-between;
     }
+    .group .btn {
+        margin-right: 10px;
+    }
+    .group .btn:last-child {
+        margin-right: 0;
+    }
+
 </style>
