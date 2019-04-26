@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './components/vd-calendar/index.vue'
 import vdMultiselect from './components/vd-multiselect/index'
+//import vdDatatable from './components/vd-datatable'
 import BootstrapVue from 'bootstrap-vue'
 import Modal from 'bootstrap-vue/es/components/modal'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -38,7 +39,7 @@ const events = [
 //Пример настроек
 const config = {
   weekends: true,
-  navLinks: true, // can click day/week names to navigate views
+  navLinks: true,
   editable: true,
   header: {
     left: 'prev,next today addEvent',

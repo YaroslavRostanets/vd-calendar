@@ -11,10 +11,11 @@
             :disabled="isDisabled"
             :block-keys="['Tab', 'Enter']"
             @input="onChange" @close="onTouch" @select="onSelect">
-        <template slot="afterList">
-            <li class="multiselect-btn-element">
+        <template slot="noResult">
+            <div class="multiselect-btn-element">
+                <div class="multiselect--no-result">Нічого не знайдено</div>
                 <b-button block variant="primary">Добавить новую запись</b-button>
-            </li>
+            </div>
         </template>
     </multiselect>
 </template>

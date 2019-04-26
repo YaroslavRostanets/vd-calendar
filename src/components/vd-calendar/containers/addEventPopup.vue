@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-modal id="add-event-modal"
-                 size="sm"
+                 size="md"
                  scrollable
                  @ok="saveEvent"
                  okTitle="Створити"
@@ -9,32 +9,80 @@
                  :title="editingEvent ? 'Редагування події' : 'Створення події'"
                  ref="add-event-popup">
                 <b-form>
-                    <b-form-group label="Назва події">
-                        <b-form-input v-model="instanceEvent.title" trim></b-form-input>
-                    </b-form-group>
-                    <b-form-group label="Дата події">
-                        <b-form-input type="date" v-model="instanceEvent.start" trim></b-form-input>
-                    </b-form-group>
+                    <b-row>
+                        <b-col>
+                            <b-form-group label="Назва події">
+                                <b-form-input v-model="instanceEvent.title" trim></b-form-input>
+                            </b-form-group>
+                        </b-col>
+                        <b-col>
+                            <b-form-group label="Дата події">
+                                <b-form-input type="date" v-model="instanceEvent.start" trim></b-form-input>
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
+
+                    <hr>
+
                     <b-form-textarea
                             placeholder="Опис події"
                             rows="1"
                             no-resize
                             v-model="instanceEvent.description"
                     ></b-form-textarea>
+
                     <hr>
-                    <b-form-group label="Нагадування">
-                        <b-form-checkbox value="test">Нагадувати за 3 дні до початку</b-form-checkbox>
-                    </b-form-group>
-                    <b-form-group label="Варіанти нагадування в день події">
-                        <b-form-select
-                                v-model="remindersSelected"
-                                :options="remindersOptions"></b-form-select>
-                    </b-form-group>
-                    <b-form-group label="Повторювати подію">
-                        <b-form-select
-                                v-model="repeatSelected"
-                                :options="repeatOptions"></b-form-select>
-                    </b-form-group>
+
+                    <b-row>
+                        <b-col>
+                            <b-form-group label="Нагадування">
+                                <b-form-checkbox value="test">Нагадувати за 3 дні до початку</b-form-checkbox>
+                            </b-form-group>
+
+                        </b-col>
+                        <b-col>
+                            <b-form-group label="Тривалість заходу">
+                                <b-form-checkbox value="test" v-model="allDay">Весь день</b-form-checkbox>
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
+
+                    <b-row>
+                        <b-col>
+                            <b-form-group label="Варіанти нагадування в день події">
+                                <b-form-select
+                                        v-model="remindersSelected"
+                                        :options="remindersOptions"></b-form-select>
+                            </b-form-group>
+                        </b-col>
+                        <b-col>
+                            <b-form-group label="Час початку"
+                                          class="m-h-55"
+                                          :disabled="allDay ? true : false ">
+                                <b-form-input type="time"
+                                              v-model="instanceEvent.timeStart"
+                                              trim></b-form-input>
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
+
+                    <b-row>
+                        <b-col>
+                            <b-form-group label="Повторювати подію">
+                                <b-form-select
+                                        v-model="repeatSelected"
+                                        :options="repeatOptions"></b-form-select>
+                            </b-form-group>
+                        </b-col>
+                        <b-col>
+                            <b-form-group label="Час закінчення">
+                                <b-form-input type="time"
+                                              :disabled="allDay ? true : false "
+                                              v-model="instanceEvent.timeEnd" trim></b-form-input>
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
+
                 </b-form>
         </b-modal>
     </div>
@@ -42,6 +90,8 @@
 </template>
 
 <script>
+    import BRow from 'bootstrap-vue/es/components/layout/row'
+    import BCol from 'bootstrap-vue/es/components/layout/col'
     import BForm from 'bootstrap-vue/es/components/form/form'
     import BFormGroup from 'bootstrap-vue/es/components/form-group/form-group'
     import BFormInput from 'bootstrap-vue/es/components/form-input/form-input'
@@ -64,7 +114,10 @@
                     title: '',
                     start: this.date,
                     description: '',
+                    timeStart: '09:00',
+                    timeEnd: '18:00'
                 },
+                allDay: false,
                 remindersSelected: 'z',
                 remindersOptions: [
                     { value: 'a', text: 'В момент початку' },
@@ -113,7 +166,9 @@
             BFormInput,
             BFormCheckbox,
             BFormSelect,
-            BFormTextarea
+            BFormTextarea,
+            BRow,
+            BCol
         },
         directives: {
             'b-modal': vBModal
@@ -121,6 +176,8 @@
     }
 </script>
 
-<style scoped>
-
+<style>
+    #add-event-modal .m-h-55 .col-form-label {
+        min-height: 55px;
+    }
 </style>

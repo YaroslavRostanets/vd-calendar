@@ -1,9 +1,11 @@
 <template>
-    <div v-if="selectedEvent">
-        <div class="card">
-            <div class="card-header">
-                <h5>{{selectedEvent.title}}</h5>
-            </div>
+    <div class="card">
+        <div class="card-header">
+            <h5>{{selectedEvent ? selectedEvent.title : 'Виберіть подію'}}</h5>
+        </div>
+
+        <div v-if="selectedEvent">
+
             <div class="card-block">
                 <table class="table">
                     <tr>
@@ -22,19 +24,22 @@
                 </table>
             </div>
             <div class="group">
-                <b-button variant="primary" @click="$emit('edit-event', selectedEvent.id)">Редагувати</b-button>
-                <b-button variant="danger" @click="$emit('delete-event', selectedEvent.id)">Видалити</b-button>
+                <b-button variant="primary" @click="$emit('edit-event', selectedEvent.id)">
+                    <edit-icon :size="20"></edit-icon>
+                </b-button>
+                <b-button variant="danger" @click="$emit('delete-event', selectedEvent.id)">
+                    <delete-icon :size="20"></delete-icon>
+                </b-button>
             </div>
+
         </div>
     </div>
-    <div v-else>
-        Виберіть подію
-    </div>
-
 </template>
 
 <script>
     import BButton from 'bootstrap-vue/es/components/button/button'
+    import EditIcon from "vue-material-design-icons/Pencil.vue"
+    import DeleteIcon from "vue-material-design-icons/Delete.vue"
 
     export default {
         name: "eventDetail",
@@ -51,7 +56,9 @@
             }
         },
         components: {
-            BButton
+            BButton,
+            EditIcon,
+            DeleteIcon
         }
     }
 </script>
@@ -84,6 +91,7 @@
     }
     .group {
         display: flex;
+        justify-content: flex-end;
     }
     .group .btn {
         margin-right: 10px;

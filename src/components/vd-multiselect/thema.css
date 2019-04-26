@@ -80,15 +80,20 @@
     border: 1px solid #aaaaaa;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
+    background: #ffffff;
+    z-index: 1;
 }
 .multiselect__content {
     margin-bottom: 0;
 }
 .multiselect-btn-element {
-    position: sticky;
-    bottom: 0;
-    left: 0;
     width: 100%;
+}
+.multiselect--no-result {
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 2px;
+    padding-bottom: 2px;
 }
 .multiselect-btn-element .btn {
     border-top-left-radius: 0 !important;
