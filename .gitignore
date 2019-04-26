@@ -1,5 +1,6 @@
 .DS_Store
 node_modules
+calendar_build
 /dist
 /_html
 /calendar_build
