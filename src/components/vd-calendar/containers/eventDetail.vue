@@ -45,13 +45,13 @@
         name: "eventDetail",
         props: ['selectedEvent'],
         computed: {
-            dateStart: function() {
+            dateStart() {
                 return new Date(this.selectedEvent.start).toLocaleDateString();
             },
-            dateEnd: function() {
+            dateEnd () {
                 return this.selectedEvent.end ? new Date(this.selectedEvent.end).toLocaleDateString() : null;
             },
-            description: function() {
+            description () {
                 return this.selectedEvent.description ? this.selectedEvent.description : null;
             }
         },

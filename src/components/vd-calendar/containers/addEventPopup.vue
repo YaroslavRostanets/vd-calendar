@@ -105,9 +105,8 @@
     export default {
         name: 'addEventPopup',
         props: ['isModalOpen', 'editingEvent'],
-        data: function() {
+        data () {
             const dateNow = new Date();
-
             return {
                 date: `${dateNow.getFullYear()}-${String(dateNow.getMonth()+1).padStart(2,"0")}-${dateNow.getDate()}`,
                 instanceEvent: {
@@ -134,29 +133,39 @@
                     { value: 'c', text: 'Щороку' }
                 ]
             }
-
         },
         methods: {
-            saveEvent: function() {
+            saveEvent () {
                 console.log('Зберегти подію');
             }
         },
         watch: {
-            isModalOpen: function(val){
+            isModalOpen (val) {
+                var formDataObj = this.editingEvent;
+
+                if (this.editingEvent) {
+                    formDataObj = this.editingEvent;
+                } else {
+                    formDataObj = {
+                        title: '',
+                        start: this.date,
+                        description: '',
+                        timeStart: '09:00',
+                        timeEnd: '18:00'
+                    }
+                }
+                this.instanceEvent = formDataObj;
                 if(val) this.$refs['add-event-popup'].show()
             },
-            editingEvent: function(val) {
-                this.instanceEvent= {
-                    title: val ? val.title : '',
-                    start: val ? val.start : this.date,
-                    description: val ? val.description : '',
+            editingEvent (val) {
+                if (val) {
+                    this.instanceEvent = val;
                 }
             }
         },
         mounted(){
-            var self = this;
-            this.$root.$on('bv::modal::hide', function () {
-                self.$emit('close-modal');
+            this.$root.$on('bv::modal::hide', () => {
+                this.$emit('close-modal');
             });
         },
         components: {

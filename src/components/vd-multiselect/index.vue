@@ -1,16 +1,15 @@
 <template>
     <multiselect
-            :placeholder="placeholderInit"
+            :placeholder="placeholder"
             :value="value"
-            :options="optionsInit"
-            :multiple="true"
-            :searchable="true"
+            :options="options"
+            :multiple="multiple"
+            :searchable="searchable"
             :allow-empty="true"
             :hide-selected="true"
             :max-height="150"
-            :disabled="isDisabled"
             :block-keys="['Tab', 'Enter']"
-            @input="onChange" @close="onTouch" @select="onSelect">
+            @input="onChange" @close="onTouch" @select="onSelect" v-on:search-change="onSearchChange">
         <template slot="noResult">
             <div class="multiselect-btn-element">
                 <div class="multiselect--no-result">Нічого не знайдено</div>
@@ -27,15 +26,17 @@
 
     export default {
         name: "vdMultiselect",
-        props: ['options', 'placeholder'],
-        data: function() {
-          return {
-              isDisabled: false,
-              isTouched: false,
-              placeholderInit: this.placeholder,
-              value: [],
-              optionsInit: this.options
-          }
+        props: ['properties'],
+        data() {
+            let {placehlder, value, options, searchable, multiple} = this.properties;
+
+            return {
+                placeholder: placehlder,
+                value: value,
+                options: options,
+                searchable: searchable,
+                multiple: multiple
+            }
         },
         components: {
             Multiselect,
@@ -43,14 +44,19 @@
         },
         methods: {
             onChange (value) {
+                console.log('onChange: ', value);
                 this.value = value
-                //if (value.indexOf('Reset me!') !== -1) this.value = []
             },
             onSelect (option) {
-                //if (option === 'Disable me!') this.isDisabled = true
+                console.log('onSelect: ', option);
             },
             onTouch () {
+                console.log('onTouch');
                 this.isTouched = true
+            },
+            onSearchChange (query, id) {
+                console.log(query, id);
+                console.log('search');
             }
         }
     }

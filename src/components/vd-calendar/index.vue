@@ -39,7 +39,7 @@ import './assets/thema.scss'
 export default {
   name: 'app',
   props: ['calendarEvents', 'calendarConfig'],
-  data: function() {
+  data () {
     const vm = this;
     return {
       isModalOpen: false,
@@ -59,24 +59,23 @@ export default {
     }
   },
   methods: {
-    dayClick: function(date, jsEvent, view) {
+    dayClick (date, jsEvent, view) {
       console.log(date, jsEvent, view);
     },
-    eventSelected: function(event, jsEvent, view) {
+    eventSelected (event, jsEvent, view) {
       console.log(event, jsEvent, view);
       this.selectedEvent = event;
     },
-    closeModal: function() {
+    closeModal () {
       this.isModalOpen = false;
       this.editingEvent = null;
     },
-    eventEdit: function(id) {
+    eventEdit (id) {
       this.editingEvent = this.events.find((el) => el.id == id);
       this.isModalOpen = true;
       console.log('Событие редактирования', id);
-
     },
-    eventDelete: function(id) {
+    eventDelete (id) {
       console.log('Событие удаления', id);
       this.events.splice( this.events.findIndex((el) => el.id === id), 1); //Выполнить в callback AJAX
       this.selectedEvent = null;

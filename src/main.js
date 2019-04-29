@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import App from './components/vd-calendar/index.vue'
 import vdMultiselect from './components/vd-multiselect/index'
-//import vdDatatable from './components/vd-datatable'
 import BootstrapVue from 'bootstrap-vue'
 import Modal from 'bootstrap-vue/es/components/modal'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -67,13 +66,15 @@ new Vue({
 new Vue({
     render: h => h(vdMultiselect, {
         props: {
-            isDisabled: false,
-            isTouched: false,
-            placeholder: 'Виберіть опцію',
-            value: [],
-            options: ['Параметр 1', 'Параметр 2', 'Параметр 3',
-                'Параметр 4', 'Параметр 5', 'Параметр 6',
-                'Параметр 7', 'Параметр 8', 'Параметр 9']
+            properties: {
+                placeholder: 'Виберіть опцію',
+                value: [],
+                options: ['Параметр 1', 'Параметр 2', 'Параметр 3',
+                    'Параметр 4', 'Параметр 5', 'Параметр 6',
+                    'Параметр 7', 'Параметр 8', 'Параметр 9'],
+                searchable: true,
+                multiple: true
+            },
         }
     })
 }).$mount('.vd-multiselect');
