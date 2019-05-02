@@ -28,7 +28,19 @@
         <div class="vd-multiselect"></div>
       </div>
     </div>
-    <hr>
+    <div id="vd-notifications"></div>
+    <div id="app">
+      <vd-multiselect
+              :placeholder="'Виберіть опцію'"
+              :value="[]"
+              :options="['Параметр 1', 'Параметр 2', 'Параметр 3',
+                    'Параметр 4', 'Параметр 5', 'Параметр 6',
+                    'Параметр 7', 'Параметр 8', 'Параметр 9']"
+              :searchable="true"
+              :multiple="true"
+      ></vd-multiselect>
+      <hr>
+    </div>
 
     <!-- built files will be auto injected -->
   </body>

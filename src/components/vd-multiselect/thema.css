@@ -3,6 +3,7 @@
     border-radius: 4px;
     position: relative;
     background: #FFF;
+    max-width: 250px;
 }
 .multiselect--active .multiselect__tags-wrap {
     margin-bottom: 10px;

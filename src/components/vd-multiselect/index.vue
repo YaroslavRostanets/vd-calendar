@@ -26,16 +26,10 @@
 
     export default {
         name: "vdMultiselect",
-        props: ['properties'],
+        props: ['placeholder', 'value', 'options', 'searchable', 'multiple'],
         data() {
-            let {placehlder, value, options, searchable, multiple} = this.properties;
-
             return {
-                placeholder: placehlder,
-                value: value,
-                options: options,
-                searchable: searchable,
-                multiple: multiple
+
             }
         },
         components: {

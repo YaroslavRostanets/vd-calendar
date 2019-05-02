@@ -1,16 +1,19 @@
 import Vue from 'vue'
 import App from './components/vd-calendar/index.vue'
 import vdMultiselect from './components/vd-multiselect/index'
+import vdNotifications from './components/vd-notifications'
 import BootstrapVue from 'bootstrap-vue'
 import Modal from 'bootstrap-vue/es/components/modal'
+import Snotify from 'vue-snotify';
+
 import 'bootstrap/dist/css/bootstrap.css'
 
 import FullCalendar from 'vue-full-calendar'
 
-Vue.use(FullCalendar, BootstrapVue, Modal);
-
+Vue.use(FullCalendar, BootstrapVue, Modal, Snotify);
 
 Vue.config.productionTip = false;
+Vue.component('vd-multiselect', vdMultiselect)
 
 //Пример событий
 const events = [
@@ -63,7 +66,7 @@ new Vue({
 
 /*---------инициализация SELECT-------------*/
 
-new Vue({
+/*new Vue({
     render: h => h(vdMultiselect, {
         props: {
             properties: {
@@ -77,6 +80,13 @@ new Vue({
             },
         }
     })
-}).$mount('.vd-multiselect');
+}).$mount('.vd-multiselect');*/
 
 /*----------------------------*/
+
+var app = new Vue({
+    el: '#app',
+    data: {
+        message: 'Привет, Vue!'
+    }
+})
